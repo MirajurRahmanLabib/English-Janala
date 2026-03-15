@@ -19,7 +19,50 @@ const loadLevelWord=(id)=>{
         clickBtn.classList.remove('btn-outline')
         displayLevelWord(data.data)});
 };
- 
+
+
+const loadWordDetail = (id)=>{
+    const url = `https://openapi.programming-hero.com/api/word/${id}`;
+    fetch(url)
+    .then(res => res.json())
+    .then(details => displayWordDetail(details.data));
+}
+
+const displayWordDetail = (word) =>{
+    const detailsContainer = document.getElementById('details-container');
+    detailsContainer.innerHTML =`
+    <div class="  border border-[#EDF7FF] rounded-xl p-6 space-y-8">
+            <h3 class="text-4xl font-semibold">${word.word} (<i class="fa-solid fa-microphone-lines"></i> : ${word.pronunciation})</h3>
+            <div>
+                <h5 class="text-2xl font-semibold">Meaning</h5>
+                <P class="py-3">${word.meaning}</P>
+            </div>
+            <div>
+                <h5 class="text-2xl font-semibold">Parts Of Speach</h5>
+                <P class="py-3">${word.partsOfSpeech}</P>
+            </div>
+            <div>
+                <h5 class="text-2xl font-semibold">Example</h5>
+                <p class="py-3">${word.sentence}</p>
+            </div>
+            <div>
+                <h5 class="text-2xl font-bangla font-semibold">সমার্থক শব্দগুলো</h5>
+                <p class=" flex gap-4 pt-3">
+                    <button class="btn bg-[#1A91FF]/10">${word.synonyms[0]}</button>
+                    <button class="btn bg-[#1A91FF]/10">${word.synonyms[1]}</button>
+                    <button class="btn bg-[#1A91FF]/10">${word.synonyms[2]}</button>
+                </p>
+            </div>
+        </div>
+        <div class="modal-action">
+            <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn btn-primary rounded-xl ">Complete Learning</button>
+            </form>
+        </div>
+    `
+    my_modal_5.showModal();
+}
 
 const displayLevelWord = (words) => {
     const wordContainer = document.getElementById('word-container');
@@ -38,17 +81,16 @@ const displayLevelWord = (words) => {
 
     for(let word of words){
         const wordDiv = document.createElement('div')
-        wordDiv.innerHTML = `
+        wordDiv.innerHTML =`
             <div class="rounded-xl p-14 bg-white">
                 <h1 class="font-bold text-3xl">${word.word ? word.word : 'শব্দ পাওয়া যায়নি'}</h1>
                 <p class="font-medium text-xl py-6">Meaning /Pronounciation</p>
                 <p class="font-bangla font-semibold text-3xl pb-14">"${word.meaning ? word.meaning : 'অর্থ পাওয়া যায়নি' } / ${word.pronunciation ? word.pronunciation : 'উচ্চারণ পাওয়া যায়নি'}"</p>
                 <div class="flex justify-between">
-                    <button class="btn bg-[#1A91FF]/10"><i class="fa-solid fa-circle-info"></i></button>
+                    <button onclick="loadWordDetail(${word.id})" class="btn bg-[#1A91FF]/10"><i class="fa-solid fa-circle-info"></i></button>
                     <button class="btn bg-[#1A91FF]/10"><i class="fa-solid fa-volume-high"></i></button>
                 </div>
             </div>
-
         `
         wordContainer.append(wordDiv)
     }

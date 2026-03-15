@@ -56,7 +56,7 @@
         </div>        
     </header>
     <!-- HERO -->
-    <section class="container mx-auto flex flex-col-reverse md:flex-row justify-between items-center">
+    <section class="container mx-auto flex flex-col-reverse md:flex-row justify-between items-center p-0 md:pt-10 lg:p-0">
         <div class="">
             <h1 class="font-bold text-5xl"><span class="text-[#00BCFF]">Englih</span> is Easy!!</h1>
             <p class="font-bangla text-2xl py-7 max-w-3xl">আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন অথবা আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে নিয়ে যাবে অন্য একটি Level এ</p>
@@ -147,6 +147,41 @@
         </div>
 
     </section>
+    <!-- Open the modal using ID.showModal() method -->
+    <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+    <div id="details-container" class="modal-box p-6 rounded-3xl ">
+        <div class="  border border-[#EDF7FF] rounded-xl p-6 space-y-8">
+            <h3 class="text-4xl font-semibold">Eager (:ইগার)</h3>
+            <div>
+                <h5 class="text-2xl font-semibold">Meaning</h5>
+                <P class="py-3">আগ্রহি</P>
+            </div>
+            <div>
+                <h5 class="text-2xl font-semibold">Parts Of Speach</h5>
+                <P class="py-3">Adjective</P>
+            </div>
+            <div>
+                <h5 class="text-2xl font-semibold">Example</h5>
+                <p class="py-3">Press ESC hsakjd jhkjfasdf jjdf jhdsfa  key or click the button below to close</p>
+            </div>
+            <div>
+                <h5 class="text-2xl font-bangla font-semibold">সমার্থক শব্দগুলো</h5>
+                <p class=" flex gap-4 pt-3">
+                    <button class="btn bg-[#1A91FF]/10">Enthusiastic</button>
+                    <button class="btn bg-[#1A91FF]/10">Excited</button>
+                    <button class="btn bg-[#1A91FF]/10">Keen</button>
+                </p>
+            </div>
+        </div>
+        <div class="modal-action">
+            <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn btn-primary rounded-xl ">Complete Learning</button>
+            </form>
+        </div>
+    </div>
+    </dialog>
 
     <footer class="bg-base-200  border-base-300 border-t border-[#FFEBEB] px-10 py-24">
         
