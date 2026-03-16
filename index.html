@@ -137,11 +137,36 @@
         <h2 class="font-bold text-4xl mt-10"><span class="text-[#00BCFF]">Let's </span>Learn Vocabularies</h2>
         <div id="level-container" class="flex flex-wrap gap-5 justify-center py-10">
         </div> 
-            <!-- learn -->
-        <div id="word-container" class="container bg-base-200 p-8 rounded-3xl grid lg:grid-cols-3 gap-8">
-            <div class="text-center col-span-full">
-                <p class="text-gray-400">আপনি এখনো কোন Lesson Select করেন ন</p><br>
-                <p class="font-medium text-4xl">একটি Lesson Select করুন।</p>
+        <!-- Search -->
+        <label class="input">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                stroke-width="2.5"
+                fill="none"
+                stroke="currentColor"
+                >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+                </g>
+            </svg>
+            <input id="input-search" type="search" required placeholder="Search Word" />
+        </label>
+        <button id="btn-search" class="btn btn-primary ">Search</button>
+
+        <!-- learn -->
+        <div class="container bg-base-200 p-8 my-8 rounded-3xl ">
+            <!-- loading bar -->
+            <div id="loading-bar" class="text-center hidden">
+                <span class="loading loading-bars loading-xl text-primary "></span>
+            </div>
+            <!-- word-container  -->
+            <div id="word-container" class=" grid lg:grid-cols-3 gap-8">
+                <div class="text-center col-span-full">
+                    <p class="text-gray-400">আপনি এখনো কোন Lesson Select করেন নি </p><br>
+                    <p class="font-medium text-4xl">একটি Lesson Select করুন।</p>
+                </div>
             </div>
 
         </div>
@@ -182,6 +207,8 @@
         </div>
     </div>
     </dialog>
+
+
 
     <footer class="bg-base-200  border-base-300 border-t border-[#FFEBEB] px-10 py-24">
         

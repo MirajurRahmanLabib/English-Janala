@@ -1,3 +1,24 @@
+const createElements =(arr) =>{
+    const htmlElements = arr.map(el =>`<span class="btn bg-[#1A91FF]/10" >${el}</span>`)
+    return htmlElements.join(' ');
+};
+
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+const mngLoadingBar=(status)=>{
+    if(status == true){
+        document.getElementById("loading-bar").classList.remove('hidden')
+        document.getElementById("word-container").classList.add('hidden')
+    }
+    else{
+        document.getElementById("word-container").classList.remove('hidden')
+        document.getElementById("loading-bar").classList.add('hidden')
+    }
+}
+
 const loadLessons = () => {
     fetch("https://openapi.programming-hero.com/api/levels/all")
     .then(res => res.json())
@@ -10,6 +31,7 @@ const removeActive =()=> {
  }
 
 const loadLevelWord=(id)=>{
+    mngLoadingBar(true);
     const url = `https://openapi.programming-hero.com/api/level/${id}`;
     fetch(url)
     .then(res => res.json())
@@ -47,11 +69,7 @@ const displayWordDetail = (word) =>{
             </div>
             <div>
                 <h5 class="text-2xl font-bangla font-semibold">সমার্থক শব্দগুলো</h5>
-                <p class=" flex gap-4 pt-3">
-                    <button class="btn bg-[#1A91FF]/10">${word.synonyms[0]}</button>
-                    <button class="btn bg-[#1A91FF]/10">${word.synonyms[1]}</button>
-                    <button class="btn bg-[#1A91FF]/10">${word.synonyms[2]}</button>
-                </p>
+                <p class=" flex gap-3 pt-3">${createElements(word.synonyms)}</p>
             </div>
         </div>
         <div class="modal-action">
@@ -76,24 +94,26 @@ const displayLevelWord = (words) => {
                 <p class="font-medium text-4xl">নেক্সট Lesson এ যান</p>
             </div>
         `;
+        mngLoadingBar(false);
         return;
     }
 
     for(let word of words){
         const wordDiv = document.createElement('div')
         wordDiv.innerHTML =`
-            <div class="rounded-xl p-14 bg-white">
+            <div class="rounded-xl p-14 h-full bg-white">
                 <h1 class="font-bold text-3xl">${word.word ? word.word : 'শব্দ পাওয়া যায়নি'}</h1>
                 <p class="font-medium text-xl py-6">Meaning /Pronounciation</p>
                 <p class="font-bangla font-semibold text-3xl pb-14">"${word.meaning ? word.meaning : 'অর্থ পাওয়া যায়নি' } / ${word.pronunciation ? word.pronunciation : 'উচ্চারণ পাওয়া যায়নি'}"</p>
                 <div class="flex justify-between">
-                    <button onclick="loadWordDetail(${word.id})" class="btn bg-[#1A91FF]/10"><i class="fa-solid fa-circle-info"></i></button>
-                    <button class="btn bg-[#1A91FF]/10"><i class="fa-solid fa-volume-high"></i></button>
+                    <button onclick="loadWordDetail(${word.id})" class="btn bg-[#1A91FF]/10 hover:bg-[#1A91FF]"><i class="fa-solid fa-circle-info"></i></button>
+                    <button onclick = "pronounceWord('${word.word}')" class="btn bg-[#1A91FF]/10 hover:bg-[#1A91FF]"><i class="fa-solid fa-volume-high"></i></button>
                 </div>
             </div>
         `
         wordContainer.append(wordDiv)
     }
+    mngLoadingBar(false);
 }
 
 
@@ -119,3 +139,21 @@ const displayLesson = (lessons) => {
 };
 
 loadLessons();
+
+
+// search
+document.getElementById('btn-search').addEventListener('click', () =>{
+    removeActive();
+    const input = document.getElementById('input-search');
+    const searchValue = input.value;
+    console.log(searchValue);
+
+    fetch('https://openapi.programming-hero.com/api/words/all')
+    .then(res => res.json())
+    .then(data =>{
+    const allWords = data.data;
+    const filterWords = allWords.filter(word => word.word.toLowerCase().includes(searchValue));
+    console.log(filterWords)
+    displayLevelWord(filterWords);
+    });
+})
